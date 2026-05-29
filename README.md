@@ -23,13 +23,13 @@ git clone <your-repository-url>
 cd dsa-module1-assignment
 2. Create a Virtual Environment (Recommended)
 On Windows:
-Bashpython -m venv venv
+Bash python -m venv venv
 venv\Scripts\activate
 On macOS / Linux:
-Bashpython3 -m venv venv
+Bash python3 -m venv venv
 source venv/bin/activate
 3. Install Dependencies
-Bashpip install -r requirements.txt
+Bash pip install -r requirements.txt
 
 📁 Project Structure
 textdsa-module1-assignment/
