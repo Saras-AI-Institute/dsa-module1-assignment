@@ -20,3 +20,20 @@ Replace the URL with your actual copied repository link:
 ```bash
 git clone <your-repository-url>
 cd dsa-module1-assignment
+
+### 2. Set up a Virtual Environment (Recommended)
+This keeps your project dependencies isolated and clean.
+
+* **On Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+
+* **On macOS / Linux:**
+python3 -m venv venv
+source venv/bin/activate
+
+### 3. Install Dependencies
+Install the pytest framework required to check your assignment:
+
+pip install -r requirements.txt
