@@ -3,7 +3,7 @@ from log_engine import LoglyticsEngine
 
 def test_task1_parsing():
     engine = LoglyticsEngine()
-    raw = "  12:00:00 | CRITICAL | user_99 | System Crash  "
+    raw = "   12:00:00 | CRITICAL | user_99 | System Crash   "
     parsed = engine.parse_and_archive_log(raw)
     
     assert isinstance(parsed, tuple), "Parsed log must be a tuple"
