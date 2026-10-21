@@ -28,12 +28,16 @@ class LoglyticsEngine:
         Example: "14:05:32 | ERROR | user_404 | Connection dropped"
         
         TODO: 
-        1. Split the string by the pipe '|' character.
-        2. Strip any accidental leading/trailing whitespaces from each piece.
-        3. Convert the pieces into a tuple: (timestamp, level, user_id, message)
+        1. Split the string by the pipe '|' character using .split('|').
+        2. Use a list comprehension or loop to strip accidental whitespaces from each piece (e.g., piece.strip()).
+        3. Convert the cleaned list of pieces into a tuple: (timestamp, level, user_id, message)
         4. Append this tuple to self.logs_archive.
         5. Return the newly created tuple.
         """
+        # HINT: 
+        # parts = [item.strip() for item in raw_log.split('|')]
+        # log_tuple = tuple(parts)
+        
         # YOUR CODE HERE
         pass
 
@@ -43,6 +47,7 @@ class LoglyticsEngine:
     def register_user(self, user_id: str) -> None:
         """
         TODO: Add the user_id to the self.unique_users set.
+        (Remember: sets automatically handle duplicates for you!)
         """
         # YOUR CODE HERE
         pass
@@ -50,6 +55,7 @@ class LoglyticsEngine:
     def get_unique_user_count(self) -> int:
         """
         TODO: Return the total number of unique users seen by the system.
+        (Hint: Use the built-in len() function on the set.)
         """
         # YOUR CODE HERE
         pass
@@ -60,8 +66,10 @@ class LoglyticsEngine:
     def track_error_frequency(self, level: str, message: str) -> None:
         """
         TODO: If the log level is 'ERROR' or 'CRITICAL', record its frequency.
-        Use the 'message' string as the key in self.error_counts dictionary, 
-        and increment its count value by 1 every time it is encountered.
+        1. Check if level is in ('ERROR', 'CRITICAL').
+        2. If yes, use the 'message' string as the key in self.error_counts.
+        3. Increment its count by 1 (handle the case where the key doesn't exist yet, 
+           e.g., using dict.get(message, 0) + 1).
         If it's not an ERROR/CRITICAL log, do nothing.
         """
         # YOUR CODE HERE
@@ -72,18 +80,16 @@ class LoglyticsEngine:
     # =========================================================================
     def add_to_priority_alerts(self, log_tuple: tuple) -> None:
         """
-        We need to sort our highest-priority logs. 
         Severity mapping weight: 'CRITICAL' = 3, 'ERROR' = 2, 'WARNING' = 1.
         Any other level (like INFO or DEBUG) has a weight of 0 and should NOT be added.
         
         TODO: 
-        1. Determine the weight of the log based on its level (log_tuple[1]).
-        2. If weight > 0, insert the log_tuple into self.priority_alerts.
-        3. CRITICAL THINKING STEP: Keep the self.priority_alerts list sorted 
-           in DESCENDING order of weight at all times. 
-           (If weights are equal, the order of insertion does not matter).
-        
-        Example state of list: [ (t1, 'CRITICAL',...), (t2, 'ERROR',...), (t3, 'WARNING',...) ]
+        1. Create a weight dictionary or map: {"CRITICAL": 3, "ERROR": 2, "WARNING": 1}
+        2. Determine the weight of the log based on its level (log_tuple[1]).
+        3. If weight > 0, append the log_tuple into self.priority_alerts.
+        4. Keep the self.priority_alerts list sorted in DESCENDING order of weight at all times.
+           (Hint: You can sort the list after appending using a custom key, e.g., 
+            self.priority_alerts.sort(key=lambda x: weight_map[x[1]], reverse=True))
         """
         # YOUR CODE HERE
         pass
@@ -92,6 +98,8 @@ class LoglyticsEngine:
         """
         TODO: Remove and return the highest priority log alert from the 
         front/top of the queue (self.priority_alerts) so engineers can fix it.
+        (Hint: Since the list is sorted with highest priority at the beginning, 
+         you can use .pop(0)).
         Return None if the alerts list is empty.
         """
         # YOUR CODE HERE
